@@ -81,12 +81,12 @@ func newChannel(c *Connection, id uint16) *Channel {
 	return &Channel{
 		connection: c,
 		id:         id,
-		rpc:        make(chan message),
+		rpc:        make(chan message, 1),
 		consumers:  makeConsumers(),
 		confirms:   newConfirms(),
 		recv:       (*Channel).recvMethod,
 		errors:     make(chan *Error, 1),
-		close:      make(chan struct{}),
+		close:      make(chan struct{}, 1),
 	}
 }
 
